@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件中标签的id值要和dao层接口中的方法名相同 -->
+<mapper namespace="com.liuhao.dao.UserDao">
+	<!-- 查列表 -->
+	<select id="selectUser" resultType="User">
+	 select * from cms_user
+	</select>
+	
+	<!-- <select id="selectById" resultType="User">
+		select * from cms_user where id=#{id}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count from cms_user
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO `cms_1709d`.`cms_user` 
+		( `username`, `password`, `nickname`, `birthday`, `gender`, 
+		`locked`, `score`, `role`, `url`, `create_time`, `update_time`) 
+		VALUES ( #{user.username}, #{user.password}, #{user.nickname},
+		 #{user.birthday}, #{user.gender}, #{user.locked}, #{user.score}, 
+		 #{user.role}, #{user.url}, #{user.create_time}, #{user.update_time})
+		
+	</insert>
+	
+	<update id="update">
+		UPDATE `cms_1709d`.`cms_user` SET s
+		`username`=#{user.username}, `password`=#{user.password}, 
+		`nickname`=#{user.nickname}, `birthday`=#{user.birthday}, `gender`=#{user.gender}, `locked`=#{user.locked}, 
+		`score`=#{user.score}, `role`=#{user.role}, `url`=#{user.url}, `create_time`=#{user.create_time}, 
+		`update_time`=#{user.update_time} WHERE (`id`=#{user.id})
+	</update>
+	
+	<delete id="deleteById">
+		delete from cms_user where id=#{id}
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from cms_user where id in(${id})
+	</delete>
+	 -->
+</mapper>

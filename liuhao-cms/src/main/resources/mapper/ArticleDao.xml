@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuhao.dao.ArticleDao">
+	<select id="select" resultType="Article">
+		select * from cms_article
+	</select>
+	
+	<select id="selectById" resultType="Article">
+		select * from cms_article where id=#{id}
+	</select>
+	
+	<select id="count">
+		select count from cms_article
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO `cms_1709d`.`cms_article` 
+		(`id`, `title`, `content`, `picture`, `channel_id`, `category_id`, 
+		`user_id`, `hits`, `hot`, `status`, `deleted`, `created`, `updated`, 
+		`commentCnt`) VALUES (#{article.id}, #{article.title}, #{article.content}, #{article.picture}, 
+		#{article.channel_id}, #{article.category_id}, 
+		#{article.user_id}, #{article.hits}, #{article.hot}, #{article.status}, #{article.deleted},
+		 #{article.created},#{article.updated}, 
+		#{article.commentCnt})
+
+
+	</insert>
+	
+	<update id="update">
+		UPDATE `cms_1709d`.`cms_article` SET `title`= #{article.title}, content=#{article.content},
+		`picture`= #{article.picture}, `channel_id`=#{article.channel_id}, `category_id`=#{article.category_id},
+		 `user_id`=#{article.user_id}, `hits`= #{article.hits},hot =#{article.hot}, `status`=#{article.status}, 
+	 `deleted`=#{article.deleted}, `created`= #{article.created}, `updated`=#{article.updated}, , `commentCnt`=#{article.commentCnt} WHERE (`id`=#{article.id});
+
+
+	</update>
+	
+	<delete id="deleteById">
+		delete from cms_article where id=#{id}
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from cms_article where id in(${id})
+	</delete>
+</mapper>
