@@ -15,15 +15,16 @@
 	</select>
 	
 	<insert id="insert">
-		insert into cms_article_vote
-		values(#{articleTag.},#{user.password})
+	INSERT INTO `cms_1709d`.`cms_article_vote`
+	 (`id`, `article_id`, `user_id`, `option`)
+	 VALUES (#{articleVote.id}, #{articleVote.article_id}, #{articleVote.user_id}, #{articleVote.option})
+		
 	</insert>
 	
 	<update id="update">
-		update cms_article_vote set 
-		username=#{user.usernmae},
-		password=#{user.password}
-		where id=#{user.id}
+		UPDATE `cms_1709d`.`cms_article_vote` 
+		SET `article_id`=#{articleVote.article_id}, `user_id`=#{articleVote.user_id}, 
+		`option`=#{articleVote.option} WHERE `id`=#{articleVote.id}
 	</update>
 	
 	<delete id="deleteById">

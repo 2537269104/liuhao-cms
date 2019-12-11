@@ -15,8 +15,9 @@
 	</select>
 	
 	<insert id="insert">
-		insert into cms_comment
-		values(#{articleTag.},#{user.password})
+		INSERT INTO `cms_1709d`.`cms_comment` 
+		( `articleid`, `userid`, `content`, `created`)
+		 VALUES (#{comment.articleid}, #{comment.userid}, #{comment.content}, #{comment.created});
 	</insert>
 	
 	<update id="update">

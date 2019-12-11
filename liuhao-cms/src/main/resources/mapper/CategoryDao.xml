@@ -15,15 +15,14 @@
 	</select>
 	
 	<insert id="insert">
-		insert into cms_category
-		values(#{articleTag.},#{user.password})
+	INSERT INTO `cms_1709d`.`cms_category` (`name`, `channel_id`) 
+	      VALUES (#{category.name}}, #{category.channel_id}})
 	</insert>
 	
 	<update id="update">
-		update cms_category set 
-		username=#{user.usernmae},
-		password=#{user.password}
-		where id=#{user.id}
+		UPDATE `cms_1709d`.`cms_category`
+		 SET `name`=#{category.name}}, `channel_id`=#{category.channel_id}} WHERE (`id`=#{category.id}})
+
 	</update>
 	
 	<delete id="deleteById">

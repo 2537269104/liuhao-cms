@@ -15,15 +15,16 @@
 	</select>
 	
 	<insert id="insert">
-		insert into cms_channel
-		values(#{articleTag.},#{user.password})
+		INSERT INTO `cms_1709d`.`cms_channel` 
+		( `name`, `description`, `icon`, `sorted`) 
+		VALUES (#{channel.name}, #{channel.description}, #{channel.icon}, #{channel.sorted})
+
 	</insert>
 	
 	<update id="update">
-		update cms_channel set 
-		username=#{user.usernmae},
-		password=#{user.password}
-		where id=#{user.id}
+		UPDATE `cms_1709d`.`cms_channel` 
+		SET `name`=#{channel.name}, `description`=#{channel.description}, 
+		`icon`=#{channel.icon}, `sorted`=#{channel.sorted} WHERE (`id`=#{channel.id});
 	</update>
 	
 	<delete id="deleteById">
