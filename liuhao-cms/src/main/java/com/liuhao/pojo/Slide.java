@@ -1,4 +1,7 @@
 package com.liuhao.pojo;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author 刘浩
@@ -7,7 +10,7 @@ package com.liuhao.pojo;
  * @Description: 轮播图表 
  * @date 2019年12月10日 下午6:42:19
  */
-public class Slide {
+public class Slide implements Serializable{
 
 	private Integer id;
 	private String title;

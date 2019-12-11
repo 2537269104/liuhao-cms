@@ -1,4 +1,7 @@
 package com.liuhao.pojo;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author 刘浩
@@ -7,7 +10,7 @@ package com.liuhao.pojo;
  * @Description: 系统设置表    
  * @date 2019年12月10日 下午6:39:27
  */
-public class Settings {
+public class Settings implements Serializable{
 
 	private Integer id;
 	private String site_domain;

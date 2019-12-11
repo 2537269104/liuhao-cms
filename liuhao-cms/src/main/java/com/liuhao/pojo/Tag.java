@@ -1,4 +1,7 @@
 package com.liuhao.pojo;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author 刘浩
@@ -7,7 +10,7 @@ package com.liuhao.pojo;
  * @Description: 标签表  
  * @date 2019年12月10日 下午6:54:35
  */
-public class Tag {
+public class Tag implements Serializable{
 	private Integer id;
 	private String tagname;
 	public Integer getId() {

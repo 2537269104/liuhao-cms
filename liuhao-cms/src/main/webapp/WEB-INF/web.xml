@@ -46,6 +46,6 @@
 	<servlet-mapping>
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<!-- 拦截所有的请求 -->
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -1,4 +1,7 @@
 package com.liuhao.pojo;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author 刘浩
@@ -7,7 +10,7 @@ package com.liuhao.pojo;
  * @Description: 频道类
  * @date 2019年12月10日 下午6:33:03
  */
-public class Channel {
+public class Channel implements Serializable{
 
 	private Integer id;
 	private String name;

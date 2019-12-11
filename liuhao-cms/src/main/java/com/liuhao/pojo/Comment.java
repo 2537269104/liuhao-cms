@@ -1,5 +1,6 @@
 package com.liuhao.pojo;
 
+import java.io.Serializable;
 import java.sql.Date;
 /**
  * 
@@ -9,7 +10,7 @@ import java.sql.Date;
  * @Description: 评论表  
  * @date 2019年12月10日 下午6:38:47
  */
-public class Comment {
+public class Comment implements Serializable{
 
 	private Integer id;
 	private Integer articleid;

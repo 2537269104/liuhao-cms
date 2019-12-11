@@ -1,4 +1,7 @@
 package com.liuhao.pojo;
+
+import java.io.Serializable;
+
 /**
  * 
  * @author 刘浩
@@ -7,7 +10,7 @@ package com.liuhao.pojo;
  * @Description: 投票内容表 
  * @date 2019年12月10日 下午6:56:21
  */
-public class VoteContent {
+public class VoteContent implements Serializable{
 
 	private Integer id;
 	private String content;
