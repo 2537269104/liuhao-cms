@@ -78,4 +78,16 @@ public interface UserDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	
+	/**
+	 * 
+	 * @Title: updateLocked 
+	 * @Description: 根据user的id值 修改 user的状态
+	 * @param @param userId
+	 * @param @param i
+	 * @param @return    设定文件 
+	 * @return boolean    返回类型 
+	 * @throws
+	 */
+	boolean updateLocked(@Param("userId")Integer userId, @Param("locked")int locked);
 }

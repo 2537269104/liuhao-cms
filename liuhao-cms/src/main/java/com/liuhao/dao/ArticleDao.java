@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.liuhao.pojo.Article;
+import com.liuhao.pojo.Condition;
 import com.liuhao.pojo.User;
 
 public interface ArticleDao {
@@ -79,4 +80,6 @@ public interface ArticleDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	
+	
 }

@@ -1,71 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <form class="form-inline">
 	<div class="form-group mx-sm-3 mb-2">
-		<input type="text" class="form-control" placeholder="请输入登录名">
+	<input type="hidden" name="pageNum">
+		<input type="text" name="username" value="${user.username}" class="form-control" placeholder="请输入登录名">
 	</div>
 	<div class="form-group mx-sm-3 mb-2">
-		<input type="text" class="form-control" placeholder="请输入昵称">
+		<input type="text" name="nickname" value="${user.nickname}" class="form-control" placeholder="请输入昵称">
 	</div>
-	<button type="submit" class="btn btn-primary mb-2">查询</button>
+	<button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 </form>
-
+${pageInfo}
 <table class="table">
 	<thead>
 		<tr>
 			<th scope="col">#</th>
-			<th scope="col">First</th>
-			<th scope="col">Last</th>
-			<th scope="col">Handle</th>
+			<th scope="col">登录名称</th>
+			<th scope="col">用户昵称</th>
+			<th scope="col">是否禁用</th>
 			<th scope="col">操作</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<th scope="row">1</th>
-			<td>Mark</td>
-			<td>Otto</td>
-			<td>@mdo</td>
+	<c:forEach items="${pageInfo.list }" var="user" varStatus="count">
+	<tr>
+	<th scope="row">${user.id }</th>
+			<td>${user.username }</td>
+			<td>${user.nickname }</td>
+			<td>${user.locked==0?'启用':'禁用' }</td>
 			<td>
-				<button type="button" class="btn btn-primary">修改</button>
+			 <c:if test="${user.locked==0}">
+			 <button type="button" class="btn btn-primary" onclick="locked(${user.id})">禁用</button>
+			 </c:if>
+			  <c:if test="${user.locked!=0}">
+			 <button type="button" class="btn btn-primary" onclick="unLocked(${user.id})">启用</button>
+			 </c:if>
+				
 			</td>
 		</tr>
-		<tr>
-			<th scope="row">2</th>
-			<td>Jacob</td>
-			<td>Thornton</td>
-			<td>@fat</td>
-			<td>
-				<button type="button" class="btn btn-primary">修改</button>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">3</th>
-			<td>Larry</td>
-			<td>the Bird</td>
-			<td>@twitter</td>
-			<td>
-				<button type="button" class="btn btn-primary">修改</button>
-			</td>
-		</tr>
+	</c:forEach>
 	</tbody>
 </table>
-<div class="row">
+<!-- <div class="row">
 	<nav aria-label="Page navigation example col-5"
 		style="margin-right: 10px;">
 		<button type="button" class="btn btn-primary">添加</button>
 		<button type="button" class="btn btn-primary">批删</button>
-	</nav>
-	<nav aria-label="Page navigation example col-4">
-		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="#">首页</a></li>
-			<li class="page-item"><a class="page-link" href="#">上一页</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">下一页</a></li>
-			<li class="page-item"><a class="page-link" href="#">尾页</a></li>
-		</ul>
-	</nav>
-</div>
+	</nav> -->
+	<jsp:include page="../common/page.jsp"></jsp:include>
+<script>
+       function query() {
+    	  var params = $("form").serialize();
+    	   reload(params);
+	}
+        function locked(id){
+        	$.post("/admin/userLocked",{userId:id},function(flag){
+        		if(flag){
+        			reload();
+        		}
+        	})
+        }
+        function unLocked(id){
+        	$.post("/admin/userUnLocked",{userId:id},function(flag){
+        		if(flag){
+        			reload();
+        		}
+        	})
+        }
+        function gotoPage(pageNum){
+        	$("[name=pageNum]").val(pageNum);
+        	query();
+        }
+     
+</script>

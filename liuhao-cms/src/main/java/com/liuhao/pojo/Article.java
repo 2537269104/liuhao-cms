@@ -26,6 +26,37 @@ public class Article implements Serializable{
 	private Date created;
 	private Date updated;
 	private String commentCnt;
+	private String category_name;
+	private String channel_name;
+	
+	
+	
+	
+	public Article(Integer id, String title, String content, String picture, Integer channel_id, Integer category_id,
+			Integer user_id, Integer hits, Integer hot, Integer status, Integer deleted, Date created, Date updated,
+			String commentCnt, String category_name, String channel_name) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.picture = picture;
+		this.channel_id = channel_id;
+		this.category_id = category_id;
+		this.user_id = user_id;
+		this.hits = hits;
+		this.hot = hot;
+		this.status = status;
+		this.deleted = deleted;
+		this.created = created;
+		this.updated = updated;
+		this.commentCnt = commentCnt;
+		this.category_name = category_name;
+		this.channel_name = channel_name;
+	}
+	public Article() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -110,9 +141,17 @@ public class Article implements Serializable{
 	public void setCommentCnt(String commentCnt) {
 		this.commentCnt = commentCnt;
 	}
-	public Article() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+	public String getChannel_name() {
+		return channel_name;
+	}
+	public void setChannel_name(String channel_name) {
+		this.channel_name = channel_name;
 	}
 	public Article(Integer id, String title, String content, String picture, Integer channel_id, Integer category_id,
 			Integer user_id, Integer hits, Integer hot, Integer status, Integer deleted, Date created, Date updated,
@@ -138,8 +177,10 @@ public class Article implements Serializable{
 		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", picture=" + picture
 				+ ", channel_id=" + channel_id + ", category_id=" + category_id + ", user_id=" + user_id + ", hits="
 				+ hits + ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created
-				+ ", updated=" + updated + ", commentCnt=" + commentCnt + "]";
+				+ ", updated=" + updated + ", commentCnt=" + commentCnt + ", category_name=" + category_name
+				+ ", channel_name=" + channel_name + "]";
 	}
+	
 	
 	
 	
