@@ -34,7 +34,6 @@
 		chooseMenu(currentUrl);
 		//刷新当前页面的方法
 		function reload(params){
-			alert("reload:"+currentUrl);
 			$.get(currentUrl,params,function(res){
 				$(".tab-content").html(res);
 			},"html")

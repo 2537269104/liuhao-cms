@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <form class="form-inline">
 	<div class="form-group mx-sm-3 mb-2">
-	<input type="hidden" name="pageNum">
+	<input type="hidden" name="pageNum" value="${pageInfo.pageNum }">
 		<input type="text" name="username" value="${user.username}" class="form-control" placeholder="请输入登录名">
 	</div>
 	<div class="form-group mx-sm-3 mb-2">
@@ -57,14 +57,14 @@ ${pageInfo}
         function locked(id){
         	$.post("/admin/userLocked",{userId:id},function(flag){
         		if(flag){
-        			reload();
+        			query();
         		}
         	})
         }
         function unLocked(id){
         	$.post("/admin/userUnLocked",{userId:id},function(flag){
         		if(flag){
-        			reload();
+        			query();
         		}
         	})
         }

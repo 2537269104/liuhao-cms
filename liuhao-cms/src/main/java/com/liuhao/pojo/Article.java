@@ -1,7 +1,7 @@
 package com.liuhao.pojo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 /**
  * 
  * @author 刘浩

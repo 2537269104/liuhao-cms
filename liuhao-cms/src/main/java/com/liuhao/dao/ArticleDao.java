@@ -81,5 +81,9 @@ public interface ArticleDao {
 	 */
 	int deleteByIds(@Param("ids") String ids);
 	
+	int updateHot(@Param("id") Integer id);
+	
+	boolean updateStatus(@Param("id")Integer id, @Param("status")Integer status);
+	
 	
 }

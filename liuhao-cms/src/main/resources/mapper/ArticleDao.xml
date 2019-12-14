@@ -48,6 +48,13 @@ LEFT JOIN cms_channel on cms_category.channel_id=cms_channel.id
 
 
 	</update>
+	<update id="updateHot">
+		UPDATE `cms_1709d`.`cms_article` SET hot =hot+1 WHERE (`id`=#{id});
+	</update>
+	
+	<update id="updateStatus">
+		UPDATE `cms_1709d`.`cms_article` SET`status`=#{status} WHERE (`id`=#{id});
+	</update>
 	
 	<delete id="deleteById">
 		delete from cms_article where id=#{id}

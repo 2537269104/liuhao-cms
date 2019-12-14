@@ -30,5 +30,16 @@ public class ArticleServiceImpl implements ArticleService{
 			return new PageInfo<>(userList);
 		
 	}
+	@Override
+	public boolean addHot(Integer id) {
+		// TODO Auto-generated method stub
+		return articleDao.updateHot(id)>0;
+	}
+	@Override
+	public boolean checkArticle(Integer id, Integer status) {
+		
+		
+		return articleDao.updateStatus(id,status);
+	}
 	
 }

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-${pageInfo.list}
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <form class="form-inline">
-	<input type="hidden" name="pageNum">
+	<input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
 	<div class="form-group mx-sm-3 mb-2">
 		<input type="text" class="form-control" name="title"
 			value="${article.title}" placeholder="请输入文章标题">
@@ -11,14 +12,22 @@ ${pageInfo.list}
 	<div class="form-group mx-sm-3 mb-2">
 		<select id="inputState" class="form-control" name="channel_name">
 			<option selected value="">请选择频道...</option>
+			<c:forEach items="${channelList }" var="item">
+	     		<c:if test="${item.name==article.channel_name }">
+			        <option value="${item.name }" selected="selected">${item.name }</option>
+	     		</c:if>
+	     		<c:if test="${item.name!=article.channel_name }">
+			        <option value="${item.name }">${item.name }</option>
+	     		</c:if>
+	     	</c:forEach>
 		</select>
 	</div>
 	<div class="form-group mx-sm-3 mb-2">
 		<select id="inputState2" class="form-control"  name="status">
 			<option selected value="">请选择审核状态...</option>
-			<option  value="0">刚发布</option>
-			<option  value="1">审核通过.</option>
-			<option  value="-1">审核未通过.</option>
+			<option  value="0" <c:if test="${article.status==0 }">selected="selected"</c:if>>刚发布</option>
+			<option  value="1" <c:if test="${article.status==1 }">selected="selected"</c:if>>审核通过.</option>
+			<option  value="-1"<c:if test="${article.status==-1 }">selected="selected"</c:if>>审核未通过.</option>
 		</select>
 	</div>
 	<button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
@@ -26,7 +35,9 @@ ${pageInfo.list}
 <table class="table">
 	<thead>
 		<tr>
-			<th scope="col">选择</th>
+			<th scope="col">
+			 <input type="checkbox" onclick="choose(this)">
+			</th>
 			<th scope="col">序号</th>
 			<th scope="col">标题</th>
 			<th scope="col">所属频道</th>
@@ -55,10 +66,15 @@ ${pageInfo.list}
 						    </c:if> <c:if test="${article.status==-1}">
 						          审核未通过
 						    </c:if></td>
-				<td>${article.created}</td>
+				<td>
+				 <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.created}"/>
+				        
+				</td>
 
-				<td><input type="button" class="btn btn-primary" value="文章详情"
-					onclick="xiangqing()"></td>
+				<td><input type="button" class="btn btn-primary" value="审核"
+					onclick="check(${article.id})">
+					<input type="button" class="btn btn-primary" value="加热"
+					onclick="addHot(${article.id})"></td>
 			</tr>
 		</c:forEach>
 
@@ -73,6 +89,7 @@ ${pageInfo.list}
 	<jsp:include page="../common/page.jsp"></jsp:include>
 </div>
 <script>
+     //添加修改 
 	 function add() {
 			$.get("/admin/addArticle",{},function(res){
 				$(".tab-content").html(res);
@@ -86,30 +103,30 @@ ${pageInfo.list}
     	  var params = $("form").serialize();
     	   reload(params);
 	}
-        function locked(id){
-        	$.post("/admin/userLocked",{userId:id},function(flag){
-        		if(flag){
-        			reload();
-        		}
-        	})
-        }
-        function unLocked(id){
-        	$.post("/admin/userUnLocked",{userId:id},function(flag){
-        		if(flag){
-        			reload();
-        		}
-        	})
-        }
+	  //全选,全不选
+	  function choose(own){
+		  $("[name=check]").attr("checked",own.checked)
+	  }
+	  //审核
+	  function check(id){
+		  $.post("/article/checkArticle",{id:id},function(flag){
+			  if(flag){
+				  alert("审核通过");
+				  query();
+			  }
+		  })
+	  }
+	  //加热
+	  function addHot(id){
+		  $.post("/article/addHot",{id:id},function(flag){
+			  if(flag){
+				  query();
+			  }
+		  })
+	  }
         function gotoPage(pageNum){
         	$("[name=pageNum]").val(pageNum);
         	query();
         }
-         $(function(){
-        	 $.get("/channel/selectChannel",{},function(obj){
-        		 for(var i in obj){
-        			 $("#inputState").append("<option value='"+obj[i].name+"'>"+obj[i].name+"</option>")
-        		 }
-        	 })
-        	
-         })
+         
 	</script>
