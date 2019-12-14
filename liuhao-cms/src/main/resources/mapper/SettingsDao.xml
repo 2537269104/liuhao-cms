@@ -14,16 +14,24 @@
 		select count from cms_settings
 	</select>
 	
-	<insert id="insert">
-		insert into cms_settings
-		values(#{articleTag.},#{user.password})
+	<insert id="insert" useGeneratedKeys="true" keyProperty="settings.id">
+		insert into cms_settings (site_domain, site_name, article_list_size, 
+	      slide_size, admin_username, admin_password
+	      )
+	    values (#{settings.site_domain}, #{settings.site_name}, #{settings.article_list_size}, 
+	      #{settings.slide_size}, #{settings.admin_username}, #{settings.admin_password}
+	      )
 	</insert>
 	
 	<update id="update">
-		update cms_settings set 
-		username=#{user.usernmae},
-		password=#{user.password}
-		where id=#{user.id}
+		update cms_settings
+	    set site_domain = #{settings.site_domain},
+	      site_name =#{settings.site_name},
+	      article_list_size = #{settings.article_list_size},
+	      slide_size = #{settings.slide_size},
+	      admin_username = #{settings.admin_username},
+	      admin_password = #{settings.admin_password}
+	    where id = #{settings.id}
 	</update>
 	<update id="updateDomainAndNameById">
 		update cms_settings set 

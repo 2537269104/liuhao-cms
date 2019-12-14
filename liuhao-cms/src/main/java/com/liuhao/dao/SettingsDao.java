@@ -47,7 +47,7 @@ public interface SettingsDao {
 	 * @throws
 	 */
 	
-	int insert (@Param("settings") Settings settings);
+	int insert (@Param("settings")Settings settings);
 	/**
 	 * 
 	 * @Title: update 
