@@ -78,4 +78,7 @@ public interface SettingsDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	
+	//只修改网站域名以及网站名称 
+	int updateDomainAndNameById(@Param("settings")Settings settings);
 }
