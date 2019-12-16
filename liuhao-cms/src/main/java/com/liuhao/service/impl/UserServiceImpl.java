@@ -59,4 +59,9 @@ public class UserServiceImpl implements  UserService {
 		
 	 return userDao.updateLocked(userId,0);
 	}
+	@Override
+	public User getByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userDao.selectByUsername(username);
+	}
 }

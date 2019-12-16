@@ -115,6 +115,10 @@ public class User implements Serializable{
 				+ ", role=" + role + ", url=" + url + ", create_time=" + create_time + ", update_time=" + update_time
 				+ "]";
 	}
+	public boolean isAdmin() {
+		// TODO Auto-generated method stub
+		return "1".equals(getRole());
+	}
 	
 	
 

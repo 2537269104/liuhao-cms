@@ -10,4 +10,6 @@ public interface UserService {
 	public boolean locked(Integer userId);
 	
 	public boolean unLocked(Integer userId);
+
+	User getByUsername(String username);
 }

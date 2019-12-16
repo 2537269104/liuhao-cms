@@ -17,12 +17,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </where>
 	</select>
 	
+	<select id="selectByUsername" resultType="User">
+	 select * from cms_user where username =#{username}
+	</select>
+	
 	 <select id="selectById" resultType="User">
 		select * from cms_user where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_user
+		select count(*) from cms_user
 	</select>
 	
 	<insert id="insert">

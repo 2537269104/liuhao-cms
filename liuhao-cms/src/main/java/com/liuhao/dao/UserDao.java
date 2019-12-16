@@ -90,4 +90,6 @@ public interface UserDao {
 	 * @throws
 	 */
 	boolean updateLocked(@Param("userId")Integer userId, @Param("locked")int locked);
+	
+	User selectByUsername(@Param("username")String username);
 }
