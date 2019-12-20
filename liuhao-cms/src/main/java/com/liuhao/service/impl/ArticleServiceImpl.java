@@ -1,5 +1,6 @@
 package com.liuhao.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liuhao.dao.ArticleDao;
+import com.liuhao.dao.CategoryDao;
+import com.liuhao.dao.ChannelDao;
 import com.liuhao.pojo.Article;
 import com.liuhao.pojo.Channel;
 import com.liuhao.pojo.Condition;
@@ -18,6 +21,10 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Autowired
 	private ArticleDao articleDao;
+	@Autowired
+	private ChannelDao channelDao;
+	@Autowired
+	private CategoryDao categoryDao;
 	@Override
 	public PageInfo<Article> getPageInfo(Article article, Integer pageNum, Integer pageSize) {
 		
@@ -40,6 +47,32 @@ public class ArticleServiceImpl implements ArticleService{
 		
 		
 		return articleDao.updateStatus(id,status);
+	}
+	@Override
+	public Article getById(Integer id) {
+		
+		return articleDao.selectById(id);
+	}
+	@Override
+	public Object save(Article article) {
+		if(article.getId()==null) {
+			article.setDeleted(0);
+			article.setCreated(new Date());
+			article.setUpdated(new Date());
+			article.setCommentCnt("0");
+			article.setHits(0);
+			article.setHot(0);
+			articleDao.insert(article);
+		}else {
+			article.setUpdated(new Date());
+			articleDao.update(article);
+		}
+		return false;
+	}
+	@Override
+	public Object getCateListByChannelId(Integer channelId) {
+		
+		return categoryDao.selectListByChannelId(channelId);
 	}
 	
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <form class="form-inline">
 	<input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
@@ -25,7 +26,7 @@
 	<div class="form-group mx-sm-3 mb-2">
 		<select id="inputState2" class="form-control"  name="status">
 			<option selected value="">请选择审核状态...</option>
-			<option  value="0" <c:if test="${article.status==0 }">selected="selected"</c:if>>刚发布</option>
+			<option  value="0" <c:if test="${article.status==0 }">selected="selected"</c:if>>未审核</option>
 			<option  value="1" <c:if test="${article.status==1 }">selected="selected"</c:if>>审核通过.</option>
 			<option  value="-1"<c:if test="${article.status==-1 }">selected="selected"</c:if>>审核未通过.</option>
 		</select>
@@ -54,13 +55,13 @@
 			<tr>
 				<td><input type="checkbox" name="check" value="${article.id}">
 				</td>
-				<td>${count.count}</td>
+				<td>${article.id}</td>
 				<td>${article.title}</td>
 				<td>${article.channel_name}</td>
 				<td>${article.category_name}</td>
-				<td>${article.hot==0?"非热点":"热点"}</td>
+				<td>${article.hot<=0?"非热点":"热点"}</td>
 				<td><c:if test="${article.status==0}">
-						          刚发布
+						          已审核
 						    </c:if> <c:if test="${article.status==1}">
 						         审核通过
 						    </c:if> <c:if test="${article.status==-1}">
@@ -87,6 +88,41 @@
 		<button type="button" class="btn btn-primary">批删</button>
 	</nav>
 	<jsp:include page="../common/page.jsp"></jsp:include>
+</div>
+<div class="alert alert-danger" role="alert" style="display: none"></div>
+
+<div class="modal" tabindex="-1" role="dialog" id="checkModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">文章审核</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="checkForm">
+        	<input type="hidden" id="id" name="id">
+        	<div class="form-check">
+			  <input class="form-check-input" type="radio" name="status" value="1" checked>
+			  <label class="form-check-label" for="exampleRadios1">
+			    	审核通过
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" name="status" value="-1" checked>
+			  <label class="form-check-label" for="exampleRadios1">
+			    	审核不通过
+			  </label>
+			</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="toCheck();">确定</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
      //添加修改 
@@ -128,5 +164,18 @@
         	$("[name=pageNum]").val(pageNum);
         	query();
         }
-         
+        
+       function toCheck(){
+    		var data = $('#checkForm').serialize();
+    		console.log("data:"+data);
+    		$.post("/admin/article/update/status",data,function(res){
+    			$('#checkModal').modal('hide');
+    			$('.alert').html("审核通过");
+    			$('.alert').show();
+    			query();
+    		});
+    	}
+       function view(id){
+   		window.open("/article/"+id+".html");
+   	}
 	</script>

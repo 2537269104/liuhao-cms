@@ -22,7 +22,7 @@ public class UserTest {
 	@Test
 	public void select() {
 		
-		String string2md5 = Md5Util.string2MD5("123");
+		String string2md5 = Md5Util.string2MD5("123_cmsAdmin");
 		System.out.println(string2md5);
 	}
 }

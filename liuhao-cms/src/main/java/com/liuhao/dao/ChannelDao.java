@@ -78,4 +78,6 @@ public interface ChannelDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	
+	List<Channel> select(Object object);
 }

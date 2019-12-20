@@ -81,4 +81,6 @@ public interface CategoryDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	
+	Object selectListByChannelId(Integer channelId);
 }

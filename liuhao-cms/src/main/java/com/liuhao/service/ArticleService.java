@@ -1,10 +1,7 @@
 package com.liuhao.service;
 
-import java.util.List;
-
 import com.github.pagehelper.PageInfo;
 import com.liuhao.pojo.Article;
-import com.liuhao.pojo.Channel;
 
 public interface ArticleService {
 
@@ -16,6 +13,12 @@ public interface ArticleService {
 
 
 	boolean checkArticle(Integer id, Integer status);
+
+	Article getById(Integer id);
+
+	Object save(Article article);
+
+	Object getCateListByChannelId(Integer channelId);
 
 
 }

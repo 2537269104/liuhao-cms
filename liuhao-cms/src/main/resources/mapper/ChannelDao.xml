@@ -6,6 +6,7 @@
 		select * from cms_channel
 	</select>
 	
+	
 	<select id="selectById" resultType="Channel">
 		select * from cms_channel where id=#{id}
 	</select>
