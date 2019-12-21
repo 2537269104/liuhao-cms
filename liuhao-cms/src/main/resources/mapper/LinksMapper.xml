@@ -9,4 +9,20 @@
 			</if>
 		</where>
 	</select>
+	<select id="selectById" resultType="Links">
+		select * from cms_links where id = #{id}
+	</select>
+	
+	<update id="update">
+	UPDATE `cms_1709d`.`cms_links` SET `text`=#{links.text}, `url`=#{links.url}  WHERE `id`=#{links.id}
+	</update>
+	
+	<insert id="insert">
+	INSERT INTO `cms_1709d`.`cms_links` (`id`, `text`, `url`, `created`) VALUES (null, #{links.text},
+	 #{links.url},#{links.created})
+	</insert>
+	
+	<delete id="deleteByIds">
+	  delete from cms_links where id in (${ids})
+	</delete>
 </mapper>

@@ -158,10 +158,10 @@
 		var ids = getCheckboxIds();
 		if(ids==""){
 			$(".alert").html("请选择要删除的文章");
-			//模态框显示
+			
 			$(".alert").show();
 			return;
-		}
+		}//模态框显示
 		$('#delModal').modal('show');
 	}
 	

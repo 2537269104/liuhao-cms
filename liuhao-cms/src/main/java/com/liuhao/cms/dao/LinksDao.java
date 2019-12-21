@@ -10,5 +10,12 @@ public interface LinksDao {
 
 	List<Links> select(@Param("links")Links links);
 
+	Links selectById(@Param("id")Integer id);
 	
+	int update(@Param("links")Links links);
+
+	int insert(@Param("links")Links links);
+
+	boolean deleteByIds(@Param("ids")String ids);
+
 }
