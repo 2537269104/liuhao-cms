@@ -114,7 +114,7 @@
 					  <a href="article/${item.id}.html" target="_blank">
 					  <img style="width: 64px;height: 64px;" src="${item.picture}" class="mr-3" alt="断网了"></a>  
 					    <div class="media-body">
-					      <h5 class="mt-0 mb-1"><a href="article/${item.id}.html" target="_blank">${item.title}</a> </h5>
+					      <h5 class="mt-0 mb-1"><a href="/article/${item.id}.html" target="_blank">${item.title}</a> </h5>
 					    </div>
 					  </li> 
 					</c:forEach>

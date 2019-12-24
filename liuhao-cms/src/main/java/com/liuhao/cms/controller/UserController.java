@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.liuhao.cms.common.CmsConstant;
 import com.liuhao.cms.common.CmsMd5Util;
+import com.liuhao.cms.common.CookieUtil;
 import com.liuhao.cms.common.JsonResult;
 import com.liuhao.cms.pojo.Article;
 import com.liuhao.cms.pojo.Channel;
@@ -58,7 +59,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	@ResponseBody
-	public Object login(User user,HttpSession session) {
+	public Object login(User user,HttpSession session,HttpServletResponse response) {
 		//判断用户名和密码
 		if(StringUtil.isBlank(user.getUsername()) || StringUtil.isBlank(user.getPassword())) {
 			return JsonResult.fail(1000, "用户名和密码不能为空");
@@ -74,6 +75,10 @@ public class UserController {
 		if(string2md5.equals(userInfo.getPassword())) {
 			//注册成功，将用户信息存进session对象
 			session.setAttribute(CmsConstant.UserSessionKey, userInfo);
+			//记住登录
+			if("1".equals(user.getIsMima())) {
+				CookieUtil.addCookie(response, "username", user.getUsername(), null, null, 1*60*60*24);
+			}
 			return JsonResult.sucess();
 		}
 		return JsonResult.fail(500, "未知错误");
@@ -90,6 +95,7 @@ public class UserController {
 	@RequestMapping("logout")
 	public Object logout(HttpServletResponse response,HttpSession session) {
 		session.removeAttribute(CmsConstant.UserSessionKey);
+		CookieUtil.addCookie(response, "username", null, null, null, 0);
 		return "redirect:/";
 	}
 	

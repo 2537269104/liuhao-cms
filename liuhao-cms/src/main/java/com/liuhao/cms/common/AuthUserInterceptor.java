@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.liuhao.cms.pojo.User;
+import com.liuhao.cms.service.UserService;
+import com.liuhao.util.StringUtil;
 /**
  * 
  * @author 刘浩
@@ -21,7 +25,14 @@ public class AuthUserInterceptor implements HandlerInterceptor{
 		if(userInfo!=null) {
 			return true;
 		}
-	    response.sendRedirect("/user/login");
+		String username = CookieUtil.getCookieByName(request, "username");
+	   
+		if(!StringUtil.isBlank(username)) {
+			 UserService userService = SpringBeanUtils.getBean(UserService.class);
+			    userInfo = userService.getByUsername(username);
+			    request.getSession().setAttribute(CmsConstant.UserSessionKey, userInfo);
+		}
+		response.sendRedirect("/user/login");
 		return false;
 	}
 

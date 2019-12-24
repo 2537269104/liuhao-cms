@@ -46,6 +46,8 @@
 			<mvc:exclude-mapping path="/user/login"/>
 			<mvc:exclude-mapping path="/user/register"/>
 			<mvc:exclude-mapping path="/comment/list"/>
+			<mvc:exclude-mapping path="/**/**.css"/>
+			<mvc:exclude-mapping path="/**/**.js"/>
 			<bean class="com.liuhao.cms.common.AuthUserInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
