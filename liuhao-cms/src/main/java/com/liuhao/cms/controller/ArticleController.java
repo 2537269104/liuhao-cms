@@ -1,6 +1,7 @@
 package com.liuhao.cms.controller;
 
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,7 @@ import com.liuhao.cms.pojo.Article;
 import com.liuhao.cms.pojo.Category;
 import com.liuhao.cms.pojo.Channel;
 import com.liuhao.cms.pojo.User;
-import com.liuhao.cms.service.ArticleService;
+import com.liuhao.cms.service.impl.ArticleServiceImpl;
 /**
  * 
  * @author 刘浩
@@ -32,9 +33,12 @@ import com.liuhao.cms.service.ArticleService;
 @RequestMapping("/article/")
 public class ArticleController {
 	@Autowired
-	private ArticleService articleService;
+	private ArticleServiceImpl articleService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
+
+	/*
+	 * @Autowired private ThreadPoolExecutor executor;
+	 */
 	/**
 	 * @Title: add   
 	 * @Description: 前台用户  发布文章   
@@ -45,9 +49,15 @@ public class ArticleController {
 	@RequestMapping(value="add",method=RequestMethod.GET)
 	public String add(Integer id,Model model) {
 		logger.info("articleId:{}",id);
-		
+		/*
+		 * executor.execute(new Runnable() {
+		 * 
+		 * @Override public void run() { // TODO Auto-generated method stub
+		 * 
+		 * } });
+		 */
 		if(id!=null) {
-			Article article = articleService.getById(id);
+			Article article = articleService.getById(id,null);
 			logger.info(article.toString());
 			model.addAttribute("article", article);
 			//根据频道的id对样式表进行查询

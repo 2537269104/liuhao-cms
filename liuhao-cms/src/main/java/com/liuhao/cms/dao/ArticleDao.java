@@ -141,4 +141,13 @@ public interface ArticleDao {
 	 * @throws
 	 */
 	List<Article> selectNewList(@Param("num")int num);
+	/**
+	 * 
+	 * @Title: addHits 
+	 * @Description: TODO添加点击量
+	 * @param @param id    设定文件 
+	 * @return void    返回类型 
+	 * @throws
+	 */
+	void addHits(@Param("id")Integer id);
 }

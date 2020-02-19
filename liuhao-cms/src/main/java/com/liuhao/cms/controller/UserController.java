@@ -2,6 +2,7 @@ package com.liuhao.cms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,11 +21,14 @@ import com.liuhao.cms.common.CookieUtil;
 import com.liuhao.cms.common.JsonResult;
 import com.liuhao.cms.pojo.Article;
 import com.liuhao.cms.pojo.Channel;
+import com.liuhao.cms.pojo.Collect;
 import com.liuhao.cms.pojo.Comment;
 import com.liuhao.cms.pojo.User;
 import com.liuhao.cms.service.ArticleService;
+import com.liuhao.cms.service.CollectService;
 import com.liuhao.cms.service.CommentService;
 import com.liuhao.cms.service.UserService;
+import com.liuhao.cms.service.impl.ArticleServiceImpl;
 import com.liuhao.util.StringUtil;
 
 @Controller
@@ -33,9 +37,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private ArticleService articleService;
+	private ArticleServiceImpl articleService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private CollectService collectService;
 	/**
 	 * @Title: login   
 	 * @Description: 用户登录界面   
@@ -75,10 +81,11 @@ public class UserController {
 		if(string2md5.equals(userInfo.getPassword())) {
 			//注册成功，将用户信息存进session对象
 			session.setAttribute(CmsConstant.UserSessionKey, userInfo);
-			//记住登录
+            //频道是否勾选记住登录
 			if("1".equals(user.getIsMima())) {
 				CookieUtil.addCookie(response, "username", user.getUsername(), null, null, 1*60*60*24);
 			}
+			
 			return JsonResult.sucess();
 		}
 		return JsonResult.fail(500, "未知错误");
@@ -95,6 +102,7 @@ public class UserController {
 	@RequestMapping("logout")
 	public Object logout(HttpServletResponse response,HttpSession session) {
 		session.removeAttribute(CmsConstant.UserSessionKey);
+		//退出时消除cookie
 		CookieUtil.addCookie(response, "username", null, null, null, 0);
 		return "redirect:/";
 	}
@@ -177,7 +185,7 @@ public class UserController {
 			}
 			return JsonResult.fail(100002, "修改失败");
 	}
-	
+	//评论
 	@RequestMapping("comment")
 	public String comment(Comment comment,HttpSession session,Model model,
 			@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum) {
@@ -190,6 +198,20 @@ public class UserController {
 		
 		return "user/comment";
 	}
+	//我的收藏
+	@RequestMapping("collect")
+	public String collect(Collect collect,HttpSession session,Model model,@RequestParam(value = "pageNum",defaultValue = "1")Integer PageNum) {
+		  //获取用户id
+		  User user = (User) session.getAttribute(CmsConstant.UserSessionKey);
+		  collect.setUserId(user.getId());
+		  //查询收藏
+		  PageInfo<Collect> pageInfo =collectService.getPageInfoByUid(collect,PageNum);
+		  
+		  model.addAttribute("pageInfo", pageInfo);
+		  return "user/collect";
+	}
+	
+	
 	
 	@RequestMapping("article")
 	public String article(Article article,Model model,HttpSession session,

@@ -86,9 +86,19 @@
 						  </li>
 					  </c:forEach>
 				</ul>
-				
 				</c:if>
 				<div style="margin-top: 18px;">
+				<!-- 搜索框 -->
+				<form action="" method="get">
+				   <div class="input-group mb-3">
+					<input type="text" name="title" id ="title" value="${title}" class="form-control"
+						placeholder="请输入要搜索的内容"
+						aria-label="Recipient's username" aria-describedby="button-addon2">
+					<div class="input-group-append">
+						<input type="button" value="搜索" onclick="query()"><span>本次查询所耗费的时间是${queryTime}毫秒</span>
+					</div>
+				</div>
+				</form>
 				<c:forEach items="${pageInfo.list}" var="item" >
 				<div class="media">
 					  <img src="${item.picture}" class="mr-3" alt="断网了">
@@ -137,7 +147,8 @@
 	function gotoPage(pageNo){
 		//频道id等于空则表示是热点标签页
 		if("${channelId}"==0){
-			window.location.href="/hot/"+pageNo+".html";
+			var title = $("#title").val();
+			window.location.href="/hot/"+pageNo+".html?title="+title;
 		}
 		//否则是其他标签页
 		else{
@@ -145,7 +156,10 @@
 		}
 		
 	}
-	
+	function query(){
+		var title = $("#title").val();
+		window.location.href="/hot/1.html?title="+title;
+	}
 	</script>
 </body>
 </html>

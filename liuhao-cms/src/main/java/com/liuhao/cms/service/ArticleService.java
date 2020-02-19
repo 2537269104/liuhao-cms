@@ -54,7 +54,7 @@ public interface ArticleService {
 	 * @return: Article      
 	 * @throws
 	 */
-	public Article getById(Integer id);
+	//public Article getById(Integer id);
 	/**
 	 * @Title: save   
 	 * @Description: 保存或修改文章 
@@ -139,4 +139,6 @@ public interface ArticleService {
 	 * @throws
 	 */
 	List<Article> getNewList(int i);
+	
+	Article getById(Integer id, String remoteAddr);
 }

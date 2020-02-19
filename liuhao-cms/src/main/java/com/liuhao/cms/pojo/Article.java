@@ -3,15 +3,20 @@ package com.liuhao.cms.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+@Document(indexName = "cms_liuhao",type = "article")
 public class Article implements Serializable{
 	
     /**   
 	 * @Fields serialVersionUID : TODO(这个变量表示什么)   
 	 */  
 	private static final long serialVersionUID = 1L;
-
+    @Id
 	private Integer id;
-
+    @Field(index = true,store = true,analyzer = "ik_smart",searchAnalyzer = "ik_smart",type = FieldType.text)
     private String title;
 
     private String picture;
@@ -46,9 +51,18 @@ public class Article implements Serializable{
     
     private String nickname;
     
+    private String zhaiYao;
     
     
-    public String getNickname() {
+    public String getZhaiYao() {
+		return zhaiYao;
+	}
+
+	public void setZhaiYao(String zhaiYao) {
+		this.zhaiYao = zhaiYao;
+	}
+
+	public String getNickname() {
 		return nickname;
 	}
 

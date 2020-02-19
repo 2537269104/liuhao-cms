@@ -20,6 +20,7 @@ import com.liuhao.cms.pojo.User;
 import com.liuhao.cms.service.ArticleService;
 import com.liuhao.cms.service.LinksService;
 import com.liuhao.cms.service.UserService;
+import com.liuhao.cms.service.impl.ArticleServiceImpl;
 /**
  * 
  * @author 刘浩
@@ -35,7 +36,7 @@ public class AdminController {
 	private UserService userService;
 	
 	@Autowired
-	private ArticleService articleService;
+	private ArticleServiceImpl articleService;
 	
 	@Autowired
 	private LinksService linksService;

@@ -43,6 +43,8 @@
 		<div class="row offset-1" style="margin-top: 15px;">
 			<div class="col-7">
 				<h1>${article.title }</h1>
+				<!-- 添加一个收藏功能 -->
+				<input type="button" value="收藏" onclick="collect()">
 				<div style="margin-top: 10px;margin-bottom: 10px;font-weight: bold;">
 				<span>${user.nickname }</span> 
 					<span><fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd HH:mm"/></span>
@@ -84,6 +86,37 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+	<div class="modal" tabindex="-1" role="dialog" id="checkModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">文章收藏</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="checkForm">  
+        <div class="form-check">
+			  请输入你要收藏的标题： <input class="form-check-input" type="text" name="text" id="text">
+			</div>     	
+			<p></p>
+        	<div class="form-check">
+			 请输入你要收藏的url： <input class="form-check-input" type="text" name="url" id="url" onblur="checkUrl()"><br><p></p> <span id="httpUrl" style="color: red"></span>
+			</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="toCheck();">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<script type="text/javascript" src="/public/js/jquery.min.1.12.4.js"></script>
 	<script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
@@ -111,6 +144,32 @@
 				}
 			})
 		}
+	
+	function collect(){
+		$('#checkModal').modal('show');
+	}
+	
+	function checkUrl() {
+	   var url=$("#url").val();
+	   $.post("/collect/checkUrl",{url:url},function(res){
+		   
+		   if(res){
+			   $("#httpUrl").html("校验通过");
+		   }
+		   else{
+			   $("#httpUrl").html("您输入的url格式有误，请重新输入");
+		   }
+	   })
+	}
+	function toCheck(){
+		var data = $('#checkForm').serialize();
+		console.log("data:"+data);
+		$.post("/collect/add",data,function(res){
+			$('#checkModal').modal('hide');
+			$('.alert').html("已收藏");
+			$('.alert').show();
+		});
+	}
 	</script>
 </body>
 </html>
