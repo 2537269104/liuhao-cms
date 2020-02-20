@@ -102,7 +102,19 @@
 	
 	
 	<!-- spring整合线程池 -->
-   <!--  <task:executor id="executor" pool-size="10-1000" queue-capacity="10" keep-alive="10" rejection-policy="CALLER_RUNS"/>   -->
+   <!-- spring线程池配置 -->
+	<bean id="taskExcutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+	   <!--  核心线程数，默认为1 -->
+		<property name="corePoolSize" value="5"></property>
+		<!-- 最大线程数，默认为Integer.MAX_VALUE -->
+		<property name="maxPoolSize" value="10"></property>
+		<!-- 队列最大长度，一般需要设置值>=notifyScheduledMainExecutor.maxNum；默认为Integer.MAX_VALUE -->
+		<property name="queueCapacity" value="25"></property>
+		<!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+		<property name="keepAliveSeconds" value="3000"></property>
+		<!-- 线程池对拒绝任务（无线程可用）的处理策略，目前只支持AbortPolicy、CallerRunsPolicy；默认为后者 -->
+
+	</bean>
 	
 	
 </beans>
